@@ -83,8 +83,10 @@ router.get("/getUser/:id", async (req, res) => {
 
 router.put("/updateUser/:id", async (req, res) => {
   try {
-    const { _id } = req.user;
-    const user = await User.findById(_id);
+    const { id } = req.params;
+    const user = await User.findById({
+      _id: id,
+    });
 
     if (user) {
       user.name = req.body.name;
@@ -104,7 +106,7 @@ router.put("/updateUser/:id", async (req, res) => {
 
 router.delete("/deletedUser/:id", async (req, res) => {
   try {
-    const user = await User.findOneAndDelete({ slug: req.params.slug });
+    const user = await User.findOneAndDelete({ _id: req.params.id });
 
     if (!user) {
       throw new Error("user was not found");
