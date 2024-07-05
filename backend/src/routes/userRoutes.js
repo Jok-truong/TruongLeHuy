@@ -60,8 +60,8 @@ router.post("/login", async (req, res) => {
 
 router.get("/getUser/:id", async (req, res) => {
   try {
-    const { _id } = req.user;
-    const user = await User.findById(_id);
+    const { id } = req.params;
+    const user = await User.findById(id);
 
     if (user) {
       return res.status(201).json({
